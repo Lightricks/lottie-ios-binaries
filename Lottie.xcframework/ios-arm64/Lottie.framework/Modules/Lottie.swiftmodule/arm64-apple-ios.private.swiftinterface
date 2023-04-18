@@ -124,17 +124,39 @@ final public class SizeValueProvider {
 infix operator +| : DefaultPrecedence
 infix operator +- : DefaultPrecedence
 @objc final public class CompatibleAnimation : ObjectiveC.NSObject {
-  @objc public init(name: Swift.String, bundle: Foundation.Bundle = Bundle.main)
+  @objc public init(name: Swift.String, subdirectory: Swift.String? = nil, bundle: Foundation.Bundle = Bundle.main)
   @objc deinit
 }
+@objc public enum CompatibleRenderingEngineOption : Swift.Int {
+  case shared
+  case defaultEngine
+  case automatic
+  case mainThread
+  case coreAnimation
+  public static func generateLottieConfiguration(_ configuration: Lottie.CompatibleRenderingEngineOption) -> Lottie.LottieConfiguration
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc @_Concurrency.MainActor(unsafe) final public class CompatibleAnimationView : UIKit.UIView {
-  @objc @_Concurrency.MainActor(unsafe) public init(compatibleAnimation: Lottie.CompatibleAnimation)
+  @objc @_Concurrency.MainActor(unsafe) convenience public init(compatibleAnimation: Lottie.CompatibleAnimation)
+  @objc @_Concurrency.MainActor(unsafe) public init(compatibleAnimation: Lottie.CompatibleAnimation, compatibleRenderingEngineOption: Lottie.CompatibleRenderingEngineOption)
+  @objc @_Concurrency.MainActor(unsafe) convenience public init(url: Foundation.URL)
+  @objc @_Concurrency.MainActor(unsafe) public init(url: Foundation.URL, compatibleRenderingEngineOption: Lottie.CompatibleRenderingEngineOption)
+  @objc @_Concurrency.MainActor(unsafe) convenience public init(data: Foundation.Data)
+  @objc @_Concurrency.MainActor(unsafe) public init(data: Foundation.Data, compatibleRenderingEngineOption: Lottie.CompatibleRenderingEngineOption)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
   @objc @_Concurrency.MainActor(unsafe) final public var compatibleAnimation: Lottie.CompatibleAnimation? {
     @objc get
     @objc set
   }
   @objc @_Concurrency.MainActor(unsafe) final public var loopAnimationCount: CoreFoundation.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc @_Concurrency.MainActor(unsafe) final public var compatibleDictionaryTextProvider: Lottie.CompatibleDictionaryTextProvider? {
     @objc get
     @objc set
   }
@@ -149,6 +171,9 @@ infix operator +- : DefaultPrecedence
   @objc @_Concurrency.MainActor(unsafe) final public var currentProgress: CoreFoundation.CGFloat {
     @objc get
     @objc set
+  }
+  @objc @_Concurrency.MainActor(unsafe) final public var duration: CoreFoundation.CGFloat {
+    @objc get
   }
   @objc @_Concurrency.MainActor(unsafe) final public var currentTime: Foundation.TimeInterval {
     @objc get
@@ -195,6 +220,10 @@ infix operator +- : DefaultPrecedence
   @objc @_Concurrency.MainActor(unsafe) final public func progressTime(forMarker named: Swift.String) -> CoreFoundation.CGFloat
   @objc @_Concurrency.MainActor(unsafe) final public func frameTime(forMarker named: Swift.String) -> CoreFoundation.CGFloat
   @objc @_Concurrency.MainActor(unsafe) final public func durationFrameTime(forMarker named: Swift.String) -> CoreFoundation.CGFloat
+  @objc deinit
+}
+@objc final public class CompatibleDictionaryTextProvider : ObjectiveC.NSObject {
+  @objc public init(values: [Swift.String : Swift.String])
   @objc deinit
 }
 public typealias AnimationFrameTime = CoreFoundation.CGFloat
@@ -253,10 +282,11 @@ public struct AnimationKeypath : Swift.Hashable, Swift.ExpressibleByStringLitera
   }
 }
 public struct LottieConfiguration : Swift.Hashable {
-  public init(renderingEngine: Lottie.RenderingEngineOption = .automatic, decodingStrategy: Lottie.DecodingStrategy = .dictionaryBased)
+  public init(renderingEngine: Lottie.RenderingEngineOption = .automatic, decodingStrategy: Lottie.DecodingStrategy = .dictionaryBased, colorSpace: CoreGraphics.CGColorSpace = CGColorSpaceCreateDeviceRGB())
   public static var shared: Lottie.LottieConfiguration
   public var renderingEngine: Lottie.RenderingEngineOption
   public var decodingStrategy: Lottie.DecodingStrategy
+  public var colorSpace: CoreGraphics.CGColorSpace
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: Lottie.LottieConfiguration, b: Lottie.LottieConfiguration) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -403,111 +433,111 @@ public enum LottieLoopMode {
 extension Lottie.LottieLoopMode : Swift.Equatable {
   public static func == (lhs: Lottie.LottieLoopMode, rhs: Lottie.LottieLoopMode) -> Swift.Bool
 }
-@objc @_inheritsConvenienceInitializers @IBDesignable @_Concurrency.MainActor(unsafe) final public class LottieAnimationView : Lottie.LottieAnimationViewBase {
+@objc @_inheritsConvenienceInitializers @IBDesignable @_Concurrency.MainActor(unsafe) open class LottieAnimationView : Lottie.LottieAnimationViewBase {
   @_Concurrency.MainActor(unsafe) public init(animation: Lottie.LottieAnimation?, imageProvider: Lottie.AnimationImageProvider? = nil, textProvider: Lottie.AnimationTextProvider = DefaultTextProvider(), fontProvider: Lottie.AnimationFontProvider = DefaultFontProvider(), configuration: Lottie.LottieConfiguration = .shared, logger: Lottie.LottieLogger = .shared)
   @_Concurrency.MainActor(unsafe) public init(dotLottie: Lottie.DotLottieFile?, animationId: Swift.String? = nil, textProvider: Lottie.AnimationTextProvider = DefaultTextProvider(), fontProvider: Lottie.AnimationFontProvider = DefaultFontProvider(), configuration: Lottie.LottieConfiguration = .shared, logger: Lottie.LottieLogger = .shared)
   @_Concurrency.MainActor(unsafe) public init(configuration: Lottie.LottieConfiguration = .shared, logger: Lottie.LottieLogger = .shared)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
   @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) open func play(completion: Lottie.LottieCompletionBlock? = nil)
+  @_Concurrency.MainActor(unsafe) open func play(fromProgress: Lottie.AnimationProgressTime? = nil, toProgress: Lottie.AnimationProgressTime, loopMode: Lottie.LottieLoopMode? = nil, completion: Lottie.LottieCompletionBlock? = nil)
+  @_Concurrency.MainActor(unsafe) open func play(fromFrame: Lottie.AnimationFrameTime? = nil, toFrame: Lottie.AnimationFrameTime, loopMode: Lottie.LottieLoopMode? = nil, completion: Lottie.LottieCompletionBlock? = nil)
+  @_Concurrency.MainActor(unsafe) open func play(fromMarker: Swift.String? = nil, toMarker: Swift.String, playEndMarkerFrame: Swift.Bool = true, loopMode: Lottie.LottieLoopMode? = nil, completion: Lottie.LottieCompletionBlock? = nil)
+  @_Concurrency.MainActor(unsafe) open func play(marker: Swift.String, loopMode: Lottie.LottieLoopMode? = nil, completion: Lottie.LottieCompletionBlock? = nil)
+  @_Concurrency.MainActor(unsafe) open func stop()
+  @_Concurrency.MainActor(unsafe) open func pause()
   @_Concurrency.MainActor(unsafe) final public let configuration: Lottie.LottieConfiguration
-  @_Concurrency.MainActor(unsafe) final public var valueProviders: [Lottie.AnimationKeypath : Lottie.AnyValueProvider] {
+  @_Concurrency.MainActor(unsafe) public var valueProviders: [Lottie.AnimationKeypath : Lottie.AnyValueProvider] {
     get
   }
-  @_Concurrency.MainActor(unsafe) final public var backgroundBehavior: Lottie.LottieBackgroundBehavior {
-    get
-    set
-  }
-  @_Concurrency.MainActor(unsafe) final public var animation: Lottie.LottieAnimation? {
+  @_Concurrency.MainActor(unsafe) public var backgroundBehavior: Lottie.LottieBackgroundBehavior {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) final public var animationLoaded: ((_ animationView: Lottie.LottieAnimationView, _ animation: Lottie.LottieAnimation) -> Swift.Void)? {
+  @_Concurrency.MainActor(unsafe) public var animation: Lottie.LottieAnimation? {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) final public var imageProvider: Lottie.AnimationImageProvider {
+  @_Concurrency.MainActor(unsafe) public var animationLoaded: ((_ animationView: Lottie.LottieAnimationView, _ animation: Lottie.LottieAnimation) -> Swift.Void)? {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) final public var textProvider: Lottie.AnimationTextProvider {
+  @_Concurrency.MainActor(unsafe) public var imageProvider: Lottie.AnimationImageProvider {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) final public var fontProvider: Lottie.AnimationFontProvider {
+  @_Concurrency.MainActor(unsafe) public var textProvider: Lottie.AnimationTextProvider {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) final public var isAnimationPlaying: Swift.Bool {
-    get
-  }
-  @_Concurrency.MainActor(unsafe) final public var isAnimationQueued: Swift.Bool {
-    get
-  }
-  @_Concurrency.MainActor(unsafe) final public var loopMode: Lottie.LottieLoopMode {
+  @_Concurrency.MainActor(unsafe) public var fontProvider: Lottie.AnimationFontProvider {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) final public var shouldRasterizeWhenIdle: Swift.Bool {
+  @_Concurrency.MainActor(unsafe) public var isAnimationPlaying: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var isAnimationQueued: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var loopMode: Lottie.LottieLoopMode {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) final public var currentProgress: Lottie.AnimationProgressTime {
+  @_Concurrency.MainActor(unsafe) public var shouldRasterizeWhenIdle: Swift.Bool {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) final public var currentTime: Foundation.TimeInterval {
+  @_Concurrency.MainActor(unsafe) public var currentProgress: Lottie.AnimationProgressTime {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) final public var currentFrame: Lottie.AnimationFrameTime {
+  @_Concurrency.MainActor(unsafe) public var currentTime: Foundation.TimeInterval {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) final public var realtimeAnimationFrame: Lottie.AnimationFrameTime {
-    get
-  }
-  @_Concurrency.MainActor(unsafe) final public var realtimeAnimationProgress: Lottie.AnimationProgressTime {
-    get
-  }
-  @_Concurrency.MainActor(unsafe) final public var animationSpeed: CoreFoundation.CGFloat {
+  @_Concurrency.MainActor(unsafe) public var currentFrame: Lottie.AnimationFrameTime {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) final public var respectAnimationFrameRate: Swift.Bool {
+  @_Concurrency.MainActor(unsafe) public var realtimeAnimationFrame: Lottie.AnimationFrameTime {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var realtimeAnimationProgress: Lottie.AnimationProgressTime {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var animationSpeed: CoreFoundation.CGFloat {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) final public var viewportFrame: CoreFoundation.CGRect? {
+  @_Concurrency.MainActor(unsafe) public var respectAnimationFrameRate: Swift.Bool {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) @objc override final public var intrinsicContentSize: CoreFoundation.CGSize {
+  @_Concurrency.MainActor(unsafe) public var viewportFrame: CoreFoundation.CGRect? {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public var intrinsicContentSize: CoreFoundation.CGSize {
     @objc get
   }
-  @_Concurrency.MainActor(unsafe) final public var currentRenderingEngine: Lottie.RenderingEngine? {
+  @_Concurrency.MainActor(unsafe) public var currentRenderingEngine: Lottie.RenderingEngine? {
     get
   }
-  @_Concurrency.MainActor(unsafe) final public func loadAnimation(_ animationId: Swift.String? = nil, from dotLottieFile: Lottie.DotLottieFile)
-  @_Concurrency.MainActor(unsafe) final public func play(completion: Lottie.LottieCompletionBlock? = nil)
-  @_Concurrency.MainActor(unsafe) final public func play(fromProgress: Lottie.AnimationProgressTime? = nil, toProgress: Lottie.AnimationProgressTime, loopMode: Lottie.LottieLoopMode? = nil, completion: Lottie.LottieCompletionBlock? = nil)
-  @_Concurrency.MainActor(unsafe) final public func play(fromFrame: Lottie.AnimationFrameTime? = nil, toFrame: Lottie.AnimationFrameTime, loopMode: Lottie.LottieLoopMode? = nil, completion: Lottie.LottieCompletionBlock? = nil)
-  @_Concurrency.MainActor(unsafe) final public func play(fromMarker: Swift.String? = nil, toMarker: Swift.String, playEndMarkerFrame: Swift.Bool = true, loopMode: Lottie.LottieLoopMode? = nil, completion: Lottie.LottieCompletionBlock? = nil)
-  @_Concurrency.MainActor(unsafe) final public func play(marker: Swift.String, loopMode: Lottie.LottieLoopMode? = nil, completion: Lottie.LottieCompletionBlock? = nil)
-  @_Concurrency.MainActor(unsafe) final public func stop()
-  @_Concurrency.MainActor(unsafe) final public func pause()
-  @_Concurrency.MainActor(unsafe) final public func reloadImages()
-  @_Concurrency.MainActor(unsafe) final public func forceDisplayUpdate()
-  @_Concurrency.MainActor(unsafe) final public func setValueProvider(_ valueProvider: Lottie.AnyValueProvider, keypath: Lottie.AnimationKeypath)
-  @_Concurrency.MainActor(unsafe) final public func getValue(for keypath: Lottie.AnimationKeypath, atFrame: Lottie.AnimationFrameTime?) -> Any?
-  @_Concurrency.MainActor(unsafe) final public func getOriginalValue(for keypath: Lottie.AnimationKeypath, atFrame: Lottie.AnimationFrameTime?) -> Any?
-  @_Concurrency.MainActor(unsafe) final public func logHierarchyKeypaths()
-  @_Concurrency.MainActor(unsafe) final public func addSubview(_ subview: Lottie.AnimationSubview, forLayerAt keypath: Lottie.AnimationKeypath)
-  @_Concurrency.MainActor(unsafe) final public func convert(_ rect: CoreFoundation.CGRect, toLayerAt keypath: Lottie.AnimationKeypath?) -> CoreFoundation.CGRect?
-  @_Concurrency.MainActor(unsafe) final public func convert(_ point: CoreFoundation.CGPoint, toLayerAt keypath: Lottie.AnimationKeypath?) -> CoreFoundation.CGPoint?
-  @_Concurrency.MainActor(unsafe) final public func setNodeIsEnabled(isEnabled: Swift.Bool, keypath: Lottie.AnimationKeypath)
-  @_Concurrency.MainActor(unsafe) final public func progressTime(forMarker named: Swift.String) -> Lottie.AnimationProgressTime?
-  @_Concurrency.MainActor(unsafe) final public func frameTime(forMarker named: Swift.String) -> Lottie.AnimationFrameTime?
-  @_Concurrency.MainActor(unsafe) final public func durationFrameTime(forMarker named: Swift.String) -> Lottie.AnimationFrameTime?
+  @_Concurrency.MainActor(unsafe) public func loadAnimation(_ animationId: Swift.String? = nil, from dotLottieFile: Lottie.DotLottieFile)
+  @_Concurrency.MainActor(unsafe) public func reloadImages()
+  @_Concurrency.MainActor(unsafe) public func forceDisplayUpdate()
+  @_Concurrency.MainActor(unsafe) public func setValueProvider(_ valueProvider: Lottie.AnyValueProvider, keypath: Lottie.AnimationKeypath)
+  @_Concurrency.MainActor(unsafe) public func getValue(for keypath: Lottie.AnimationKeypath, atFrame: Lottie.AnimationFrameTime?) -> Any?
+  @_Concurrency.MainActor(unsafe) public func getOriginalValue(for keypath: Lottie.AnimationKeypath, atFrame: Lottie.AnimationFrameTime?) -> Any?
+  @_Concurrency.MainActor(unsafe) public func logHierarchyKeypaths()
+  @_Concurrency.MainActor(unsafe) public func addSubview(_ subview: Lottie.AnimationSubview, forLayerAt keypath: Lottie.AnimationKeypath)
+  @_Concurrency.MainActor(unsafe) public func convert(_ rect: CoreFoundation.CGRect, toLayerAt keypath: Lottie.AnimationKeypath?) -> CoreFoundation.CGRect?
+  @_Concurrency.MainActor(unsafe) public func convert(_ point: CoreFoundation.CGPoint, toLayerAt keypath: Lottie.AnimationKeypath?) -> CoreFoundation.CGPoint?
+  @_Concurrency.MainActor(unsafe) public func setNodeIsEnabled(isEnabled: Swift.Bool, keypath: Lottie.AnimationKeypath)
+  @_Concurrency.MainActor(unsafe) public func progressTime(forMarker named: Swift.String) -> Lottie.AnimationProgressTime?
+  @_Concurrency.MainActor(unsafe) public func frameTime(forMarker named: Swift.String) -> Lottie.AnimationFrameTime?
+  @_Concurrency.MainActor(unsafe) public func durationFrameTime(forMarker named: Swift.String) -> Lottie.AnimationFrameTime?
   @objc deinit
 }
 @objc @_Concurrency.MainActor(unsafe) open class AnimatedControl : UIKit.UIControl {
@@ -589,17 +619,17 @@ extension Lottie.DotLottieFile {
   @available(iOS 13.0, macOS 10.15, tvOS 13.0, *)
   public static func named(_ name: Swift.String, bundle: Foundation.Bundle = Bundle.main, subdirectory: Swift.String? = nil, dotLottieCache: Lottie.DotLottieCacheProvider? = DotLottieCache.sharedCache) async throws -> Lottie.DotLottieFile
   #endif
-  public static func named(_ name: Swift.String, bundle: Foundation.Bundle = Bundle.main, subdirectory: Swift.String? = nil, dotLottieCache: Lottie.DotLottieCacheProvider? = DotLottieCache.sharedCache, handleResult: @escaping (Swift.Result<Lottie.DotLottieFile, Swift.Error>) -> Swift.Void)
+  public static func named(_ name: Swift.String, bundle: Foundation.Bundle = Bundle.main, subdirectory: Swift.String? = nil, dotLottieCache: Lottie.DotLottieCacheProvider? = DotLottieCache.sharedCache, dispatchQueue: Dispatch.DispatchQueue = .global(), handleResult: @escaping (Swift.Result<Lottie.DotLottieFile, Swift.Error>) -> Swift.Void)
   #if compiler(>=5.3) && $AsyncAwait
   @available(iOS 13.0, macOS 10.15, tvOS 13.0, *)
   public static func loadedFrom(filepath: Swift.String, dotLottieCache: Lottie.DotLottieCacheProvider? = DotLottieCache.sharedCache) async throws -> Lottie.DotLottieFile
   #endif
-  public static func loadedFrom(filepath: Swift.String, dotLottieCache: Lottie.DotLottieCacheProvider? = DotLottieCache.sharedCache, handleResult: @escaping (Swift.Result<Lottie.DotLottieFile, Swift.Error>) -> Swift.Void)
+  public static func loadedFrom(filepath: Swift.String, dotLottieCache: Lottie.DotLottieCacheProvider? = DotLottieCache.sharedCache, dispatchQueue: Dispatch.DispatchQueue = .global(), handleResult: @escaping (Swift.Result<Lottie.DotLottieFile, Swift.Error>) -> Swift.Void)
   #if compiler(>=5.3) && $AsyncAwait
   @available(iOS 13.0, macOS 10.15, tvOS 13.0, *)
   public static func asset(named name: Swift.String, bundle: Foundation.Bundle = Bundle.main, dotLottieCache: Lottie.DotLottieCacheProvider? = DotLottieCache.sharedCache) async throws -> Lottie.DotLottieFile
   #endif
-  public static func asset(named name: Swift.String, bundle: Foundation.Bundle = Bundle.main, dotLottieCache: Lottie.DotLottieCacheProvider? = DotLottieCache.sharedCache, handleResult: @escaping (Swift.Result<Lottie.DotLottieFile, Swift.Error>) -> Swift.Void)
+  public static func asset(named name: Swift.String, bundle: Foundation.Bundle = Bundle.main, dotLottieCache: Lottie.DotLottieCacheProvider? = DotLottieCache.sharedCache, dispatchQueue: Dispatch.DispatchQueue = .global(), handleResult: @escaping (Swift.Result<Lottie.DotLottieFile, Swift.Error>) -> Swift.Void)
   #if compiler(>=5.3) && $AsyncAwait
   @available(iOS 13.0, macOS 10.15, tvOS 13.0, *)
   public static func loadedFrom(url: Foundation.URL, session: Foundation.URLSession = .shared, dotLottieCache: Lottie.DotLottieCacheProvider? = DotLottieCache.sharedCache) async throws -> Lottie.DotLottieFile
@@ -762,7 +792,7 @@ public class BundleImageProvider : Lottie.AnimationImageProvider {
   @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
-@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class LottieAnimationViewBase : UIKit.UIView {
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class LottieAnimationViewBase : UIKit.UIView {
   @_Concurrency.MainActor(unsafe) @objc override dynamic public var contentMode: UIKit.UIView.ContentMode {
     @objc get
     @objc set
@@ -917,6 +947,9 @@ extension Lottie.CoordinateSpace : Swift.Equatable {}
 extension Lottie.CoordinateSpace : Swift.Hashable {}
 extension Lottie.CoordinateSpace : Swift.RawRepresentable {}
 extension Lottie.SizeValueProvider : Lottie.AnyValueProvider {}
+extension Lottie.CompatibleRenderingEngineOption : Swift.Equatable {}
+extension Lottie.CompatibleRenderingEngineOption : Swift.Hashable {}
+extension Lottie.CompatibleRenderingEngineOption : Swift.RawRepresentable {}
 extension Lottie.ColorValueProvider : Lottie.AnyValueProvider {}
 extension Lottie.LottieBackgroundBehavior : Swift.Equatable {}
 extension Lottie.LottieBackgroundBehavior : Swift.Hashable {}
