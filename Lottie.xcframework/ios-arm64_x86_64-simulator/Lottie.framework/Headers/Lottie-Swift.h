@@ -302,6 +302,7 @@ SWIFT_CLASS("_TtC6Lottie14AnimatedButton")
 /// An interactive switch with an ‘On’ and ‘Off’ state. When the user taps on the
 /// switch the state is toggled and the appropriate animation is played.
 /// Both the ‘On’ and ‘Off’ have an animation play range associated with their state.
+/// Also available as a SwiftUI view (<code>LottieSwitch</code>).
 SWIFT_CLASS("_TtC6Lottie14AnimatedSwitch")
 @interface AnimatedSwitch : AnimatedControl
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -373,6 +374,7 @@ SWIFT_CLASS("_TtC6Lottie20BaseCompositionLayer")
 
 
 
+
 @class NSString;
 @class NSBundle;
 
@@ -402,6 +404,7 @@ enum CompatibleRenderingEngineOption : NSInteger;
 @class NSURL;
 @class NSData;
 @class CompatibleDictionaryTextProvider;
+enum CompatibleBackgroundBehavior : NSInteger;
 @class UIColor;
 
 /// An Objective-C compatible wrapper around Lottie’s LottieAnimationView.
@@ -426,7 +429,7 @@ SWIFT_CLASS("_TtC6Lottie23CompatibleAnimationView")
 /// animation using the given rendering engine configuration.
 - (nonnull instancetype)initWithData:(NSData * _Nonnull)data compatibleRenderingEngineOption:(enum CompatibleRenderingEngineOption)compatibleRenderingEngineOption OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)_ OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @property (nonatomic, strong) CompatibleAnimation * _Nullable compatibleAnimation;
 @property (nonatomic) CGFloat loopAnimationCount;
 @property (nonatomic, strong) CompatibleDictionaryTextProvider * _Nullable compatibleDictionaryTextProvider;
@@ -441,6 +444,7 @@ SWIFT_CLASS("_TtC6Lottie23CompatibleAnimationView")
 @property (nonatomic) CGFloat animationSpeed;
 @property (nonatomic) BOOL respectAnimationFrameRate;
 @property (nonatomic, readonly) BOOL isAnimationPlaying;
+@property (nonatomic) enum CompatibleBackgroundBehavior backgroundMode;
 - (void)play;
 - (void)playWithCompletion:(void (^ _Nullable)(BOOL))completion;
 /// Note: When calling this code from Objective-C, the method signature is
@@ -468,6 +472,37 @@ SWIFT_CLASS("_TtC6Lottie23CompatibleAnimationView")
 - (CGFloat)frameTimeForMarker:(NSString * _Nonnull)named SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)durationFrameTimeForMarker:(NSString * _Nonnull)named SWIFT_WARN_UNUSED_RESULT;
 @end
+
+/// An Objective-C compatible version of <code>LottieBackgroundBehavior</code>.
+typedef SWIFT_ENUM(NSInteger, CompatibleBackgroundBehavior, open) {
+/// Stop the animation and reset it to the beginning of its current play time. The completion block is called.
+  CompatibleBackgroundBehaviorStop = 0,
+/// Pause the animation in its current state. The completion block is called.
+  CompatibleBackgroundBehaviorPause = 1,
+/// Pause the animation and restart it when the application moves to the foreground.
+/// The completion block is stored and called when the animation completes.
+/// <ul>
+///   <li>
+///     This is the default when using the Main Thread rendering engine.
+///   </li>
+/// </ul>
+  CompatibleBackgroundBehaviorPauseAndRestore = 2,
+/// Stops the animation and sets it to the end of its current play time. The completion block is called.
+  CompatibleBackgroundBehaviorForceFinish = 3,
+/// The animation continues playing in the background.
+/// <ul>
+///   <li>
+///     This is the default when using the Core Animation rendering engine.
+///     Playing an animation using the Core Animation engine doesn’t come with any CPU overhead,
+///     so using <code>.continuePlaying</code> avoids the need to stop and then resume the animation
+///     (which does come with some CPU overhead).
+///   </li>
+///   <li>
+///     This mode should not be used with the Main Thread rendering engine.
+///   </li>
+/// </ul>
+  CompatibleBackgroundBehaviorContinuePlaying = 4,
+};
 
 
 /// An Objective-C compatible wrapper around Lottie’s DictionaryTextProvider.
@@ -543,6 +578,7 @@ SWIFT_CLASS("_TtC6Lottie10DebugLayer")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 - (nonnull instancetype)initWithLayer:(id _Nonnull)layer SWIFT_UNAVAILABLE;
 @end
+
 
 
 
@@ -631,6 +667,23 @@ SWIFT_CLASS("_TtC6Lottie18InvertedMatteLayer")
 @end
 
 
+/// A CALayer subclass for rendering Lottie animations.
+/// <ul>
+///   <li>
+///     Also available as a SwiftUI view (<code>LottieView</code>) and a UIView subclass (<code>LottieAnimationView</code>)
+///   </li>
+/// </ul>
+SWIFT_CLASS("_TtC6Lottie20LottieAnimationLayer")
+@interface LottieAnimationLayer : CALayer
+/// Called by CoreAnimation to create a shadow copy of this layer
+/// More details: https://developer.apple.com/documentation/quartzcore/calayer/1410842-init
+- (nonnull instancetype)initWithLayer:(id _Nonnull)layer OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)_ OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 /// The base view for <code>LottieAnimationView</code> on iOS, tvOS, watchOS, and macCatalyst.
 /// Enables the <code>LottieAnimationView</code> implementation to be shared across platforms.
 SWIFT_CLASS("_TtC6Lottie23LottieAnimationViewBase")
@@ -645,6 +698,12 @@ SWIFT_CLASS("_TtC6Lottie23LottieAnimationViewBase")
 @end
 
 
+/// A UIView subclass for rendering Lottie animations.
+/// <ul>
+///   <li>
+///     Also available as a SwiftUI view (<code>LottieView</code>) and a CALayer subclass (<code>LottieAnimationLayer</code>)
+///   </li>
+/// </ul>
 IB_DESIGNABLE
 SWIFT_CLASS("_TtC6Lottie19LottieAnimationView")
 @interface LottieAnimationView : LottieAnimationViewBase
@@ -838,6 +897,9 @@ SWIFT_CLASS("_TtC6Lottie14TransformLayer")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)argument OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithLayer:(id _Nonnull)layer OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
+
 
 
 #endif
@@ -1152,6 +1214,7 @@ SWIFT_CLASS("_TtC6Lottie14AnimatedButton")
 /// An interactive switch with an ‘On’ and ‘Off’ state. When the user taps on the
 /// switch the state is toggled and the appropriate animation is played.
 /// Both the ‘On’ and ‘Off’ have an animation play range associated with their state.
+/// Also available as a SwiftUI view (<code>LottieSwitch</code>).
 SWIFT_CLASS("_TtC6Lottie14AnimatedSwitch")
 @interface AnimatedSwitch : AnimatedControl
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -1223,6 +1286,7 @@ SWIFT_CLASS("_TtC6Lottie20BaseCompositionLayer")
 
 
 
+
 @class NSString;
 @class NSBundle;
 
@@ -1252,6 +1316,7 @@ enum CompatibleRenderingEngineOption : NSInteger;
 @class NSURL;
 @class NSData;
 @class CompatibleDictionaryTextProvider;
+enum CompatibleBackgroundBehavior : NSInteger;
 @class UIColor;
 
 /// An Objective-C compatible wrapper around Lottie’s LottieAnimationView.
@@ -1276,7 +1341,7 @@ SWIFT_CLASS("_TtC6Lottie23CompatibleAnimationView")
 /// animation using the given rendering engine configuration.
 - (nonnull instancetype)initWithData:(NSData * _Nonnull)data compatibleRenderingEngineOption:(enum CompatibleRenderingEngineOption)compatibleRenderingEngineOption OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)_ OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @property (nonatomic, strong) CompatibleAnimation * _Nullable compatibleAnimation;
 @property (nonatomic) CGFloat loopAnimationCount;
 @property (nonatomic, strong) CompatibleDictionaryTextProvider * _Nullable compatibleDictionaryTextProvider;
@@ -1291,6 +1356,7 @@ SWIFT_CLASS("_TtC6Lottie23CompatibleAnimationView")
 @property (nonatomic) CGFloat animationSpeed;
 @property (nonatomic) BOOL respectAnimationFrameRate;
 @property (nonatomic, readonly) BOOL isAnimationPlaying;
+@property (nonatomic) enum CompatibleBackgroundBehavior backgroundMode;
 - (void)play;
 - (void)playWithCompletion:(void (^ _Nullable)(BOOL))completion;
 /// Note: When calling this code from Objective-C, the method signature is
@@ -1318,6 +1384,37 @@ SWIFT_CLASS("_TtC6Lottie23CompatibleAnimationView")
 - (CGFloat)frameTimeForMarker:(NSString * _Nonnull)named SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)durationFrameTimeForMarker:(NSString * _Nonnull)named SWIFT_WARN_UNUSED_RESULT;
 @end
+
+/// An Objective-C compatible version of <code>LottieBackgroundBehavior</code>.
+typedef SWIFT_ENUM(NSInteger, CompatibleBackgroundBehavior, open) {
+/// Stop the animation and reset it to the beginning of its current play time. The completion block is called.
+  CompatibleBackgroundBehaviorStop = 0,
+/// Pause the animation in its current state. The completion block is called.
+  CompatibleBackgroundBehaviorPause = 1,
+/// Pause the animation and restart it when the application moves to the foreground.
+/// The completion block is stored and called when the animation completes.
+/// <ul>
+///   <li>
+///     This is the default when using the Main Thread rendering engine.
+///   </li>
+/// </ul>
+  CompatibleBackgroundBehaviorPauseAndRestore = 2,
+/// Stops the animation and sets it to the end of its current play time. The completion block is called.
+  CompatibleBackgroundBehaviorForceFinish = 3,
+/// The animation continues playing in the background.
+/// <ul>
+///   <li>
+///     This is the default when using the Core Animation rendering engine.
+///     Playing an animation using the Core Animation engine doesn’t come with any CPU overhead,
+///     so using <code>.continuePlaying</code> avoids the need to stop and then resume the animation
+///     (which does come with some CPU overhead).
+///   </li>
+///   <li>
+///     This mode should not be used with the Main Thread rendering engine.
+///   </li>
+/// </ul>
+  CompatibleBackgroundBehaviorContinuePlaying = 4,
+};
 
 
 /// An Objective-C compatible wrapper around Lottie’s DictionaryTextProvider.
@@ -1393,6 +1490,7 @@ SWIFT_CLASS("_TtC6Lottie10DebugLayer")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 - (nonnull instancetype)initWithLayer:(id _Nonnull)layer SWIFT_UNAVAILABLE;
 @end
+
 
 
 
@@ -1481,6 +1579,23 @@ SWIFT_CLASS("_TtC6Lottie18InvertedMatteLayer")
 @end
 
 
+/// A CALayer subclass for rendering Lottie animations.
+/// <ul>
+///   <li>
+///     Also available as a SwiftUI view (<code>LottieView</code>) and a UIView subclass (<code>LottieAnimationView</code>)
+///   </li>
+/// </ul>
+SWIFT_CLASS("_TtC6Lottie20LottieAnimationLayer")
+@interface LottieAnimationLayer : CALayer
+/// Called by CoreAnimation to create a shadow copy of this layer
+/// More details: https://developer.apple.com/documentation/quartzcore/calayer/1410842-init
+- (nonnull instancetype)initWithLayer:(id _Nonnull)layer OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)_ OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 /// The base view for <code>LottieAnimationView</code> on iOS, tvOS, watchOS, and macCatalyst.
 /// Enables the <code>LottieAnimationView</code> implementation to be shared across platforms.
 SWIFT_CLASS("_TtC6Lottie23LottieAnimationViewBase")
@@ -1495,6 +1610,12 @@ SWIFT_CLASS("_TtC6Lottie23LottieAnimationViewBase")
 @end
 
 
+/// A UIView subclass for rendering Lottie animations.
+/// <ul>
+///   <li>
+///     Also available as a SwiftUI view (<code>LottieView</code>) and a CALayer subclass (<code>LottieAnimationLayer</code>)
+///   </li>
+/// </ul>
 IB_DESIGNABLE
 SWIFT_CLASS("_TtC6Lottie19LottieAnimationView")
 @interface LottieAnimationView : LottieAnimationViewBase
@@ -1688,6 +1809,9 @@ SWIFT_CLASS("_TtC6Lottie14TransformLayer")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)argument OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithLayer:(id _Nonnull)layer OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
+
 
 
 #endif
