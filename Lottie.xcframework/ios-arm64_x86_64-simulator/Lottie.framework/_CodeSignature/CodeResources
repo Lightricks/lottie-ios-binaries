@@ -6,55 +6,59 @@
 	<dict>
 		<key>Headers/Lottie-Swift.h</key>
 		<data>
-		smm2O60SO4Lswlk6LCwdKB9caVg=
+		YYTsVEjf3Cn6T/3cz4Ik1p4zw9U=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		+JBXq4EECVGrL5DGxWZ5DUX24qc=
+		vukXfN6Lli+t9ca0rzjNGEGHWeE=
 		</data>
 		<key>Modules/Lottie.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		6/yLciV3JLb5UGmiTRtFuQFe9Zg=
+		jQMXyYhJpThttP4b6KJsY8Rwcu4=
 		</data>
 		<key>Modules/Lottie.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		iAwOxoDApbJcz4r1Agr4HR5XKHw=
+		9YIBFUg1zsfPf2abqZc/6t/Eerg=
 		</data>
 		<key>Modules/Lottie.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		qDglkh8AmT+72tycBNkNYwyKnds=
+		BwvI2PVKcSp8mPcKFyvRjtNrlWY=
 		</data>
 		<key>Modules/Lottie.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		iAwOxoDApbJcz4r1Agr4HR5XKHw=
+		9YIBFUg1zsfPf2abqZc/6t/Eerg=
 		</data>
 		<key>Modules/Lottie.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		S0++FoVK/d0LVpUVliNZozj09S8=
+		BMWwMhTM1uY/eV/TJx5pmkSNGIw=
 		</data>
 		<key>Modules/Lottie.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		6/yLciV3JLb5UGmiTRtFuQFe9Zg=
+		jQMXyYhJpThttP4b6KJsY8Rwcu4=
 		</data>
 		<key>Modules/Lottie.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		/UApSwLkwoh2859J+RG4UHFVg3E=
+		C2bLdY/fD6cWriMrSUJ8raZkDfc=
 		</data>
 		<key>Modules/Lottie.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		r6XKc7+/wQmO3dGT1Wu4TWK13Cs=
+		1PTSozVNIh5C85WRbTxhSZwU3QI=
 		</data>
 		<key>Modules/Lottie.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		/UApSwLkwoh2859J+RG4UHFVg3E=
+		C2bLdY/fD6cWriMrSUJ8raZkDfc=
 		</data>
 		<key>Modules/Lottie.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		Xgq+yM5hhMYao7ex5AIvFn73oBA=
+		b9tg1zKNTZIGlXnBIsqrR7jXneM=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		DV06Wqt1A0d79oGLNVIbxjpgBhU=
+		</data>
+		<key>PrivacyInfo.xcprivacy</key>
+		<data>
+		9slhmTZYKDmos4efk+3YOXYOQXo=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -63,121 +67,121 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			smm2O60SO4Lswlk6LCwdKB9caVg=
+			YYTsVEjf3Cn6T/3cz4Ik1p4zw9U=
 			</data>
 			<key>hash2</key>
 			<data>
-			p0KCaADAZ1N7tEYf3oCbIMlWc4gqBWDk0Q1bTn4aE9w=
+			sPuZ/MhwCNRZyISKIwc8KBoDmo35jiT/ZN/IH/vynu4=
 			</data>
 		</dict>
 		<key>Modules/Lottie.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			6/yLciV3JLb5UGmiTRtFuQFe9Zg=
+			jQMXyYhJpThttP4b6KJsY8Rwcu4=
 			</data>
 			<key>hash2</key>
 			<data>
-			k34aGRt8Pe75hsjgfracig0+AwoJXOfJLIdp0/FtWC4=
+			CXETIKzPsZpXS6cIHoFo6cX7800MVZBanroFvpTCtOE=
 			</data>
 		</dict>
 		<key>Modules/Lottie.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			iAwOxoDApbJcz4r1Agr4HR5XKHw=
+			9YIBFUg1zsfPf2abqZc/6t/Eerg=
 			</data>
 			<key>hash2</key>
 			<data>
-			lId3E3OSTB4ONTvM9h9WFJa0Bbaj5bbKF+xnCmhVces=
+			iuA5tXGVxUe70DQOdY/pEjHAyE1iNKzB2G2SxjcWSds=
 			</data>
 		</dict>
 		<key>Modules/Lottie.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			qDglkh8AmT+72tycBNkNYwyKnds=
+			BwvI2PVKcSp8mPcKFyvRjtNrlWY=
 			</data>
 			<key>hash2</key>
 			<data>
-			2gSjR55sHej1A7YsNBldmeEw7HfMGmFuTqMvRQrTOO4=
+			06uTNYHoI7SUnGJtdQpC2zYkeJLQORkiRykE3yFNj3w=
 			</data>
 		</dict>
 		<key>Modules/Lottie.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			iAwOxoDApbJcz4r1Agr4HR5XKHw=
+			9YIBFUg1zsfPf2abqZc/6t/Eerg=
 			</data>
 			<key>hash2</key>
 			<data>
-			lId3E3OSTB4ONTvM9h9WFJa0Bbaj5bbKF+xnCmhVces=
+			iuA5tXGVxUe70DQOdY/pEjHAyE1iNKzB2G2SxjcWSds=
 			</data>
 		</dict>
 		<key>Modules/Lottie.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			S0++FoVK/d0LVpUVliNZozj09S8=
+			BMWwMhTM1uY/eV/TJx5pmkSNGIw=
 			</data>
 			<key>hash2</key>
 			<data>
-			lDPu1KDaXGtG7A5wnzbByvCkBi68szcmVgu98J1cZ+I=
+			+G4cbOgH7s8VK9Vpg5OxVhBg0BojcgeuqsPyhgqLKtg=
 			</data>
 		</dict>
 		<key>Modules/Lottie.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			6/yLciV3JLb5UGmiTRtFuQFe9Zg=
+			jQMXyYhJpThttP4b6KJsY8Rwcu4=
 			</data>
 			<key>hash2</key>
 			<data>
-			k34aGRt8Pe75hsjgfracig0+AwoJXOfJLIdp0/FtWC4=
+			CXETIKzPsZpXS6cIHoFo6cX7800MVZBanroFvpTCtOE=
 			</data>
 		</dict>
 		<key>Modules/Lottie.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			/UApSwLkwoh2859J+RG4UHFVg3E=
+			C2bLdY/fD6cWriMrSUJ8raZkDfc=
 			</data>
 			<key>hash2</key>
 			<data>
-			Zuwho03EpZPJ3b643621UO6lK1rLNwm84RwS80xgtkk=
+			IzaePranKSxkcmeOxLdAjDB0HqyyDsSxdB3QyfhJGW0=
 			</data>
 		</dict>
 		<key>Modules/Lottie.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			r6XKc7+/wQmO3dGT1Wu4TWK13Cs=
+			1PTSozVNIh5C85WRbTxhSZwU3QI=
 			</data>
 			<key>hash2</key>
 			<data>
-			PySdbVPwAVdvjTuGJVbgf+Uxqf6LHw2MFZPHFV0CcgU=
+			+g53UFPO/17EmqjN/jCvACZIRFr8tuPKbfbg8q8MoVw=
 			</data>
 		</dict>
 		<key>Modules/Lottie.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			/UApSwLkwoh2859J+RG4UHFVg3E=
+			C2bLdY/fD6cWriMrSUJ8raZkDfc=
 			</data>
 			<key>hash2</key>
 			<data>
-			Zuwho03EpZPJ3b643621UO6lK1rLNwm84RwS80xgtkk=
+			IzaePranKSxkcmeOxLdAjDB0HqyyDsSxdB3QyfhJGW0=
 			</data>
 		</dict>
 		<key>Modules/Lottie.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Xgq+yM5hhMYao7ex5AIvFn73oBA=
+			b9tg1zKNTZIGlXnBIsqrR7jXneM=
 			</data>
 			<key>hash2</key>
 			<data>
-			53KFWmAtgl8U9rKInvS/OBV4txlokbJybKrOLQvu1E0=
+			Zl1JJw7jR7hWWrRb54HkJvm/KqbMSMtun4FQz4JHSPc=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -189,6 +193,17 @@
 			<key>hash2</key>
 			<data>
 			GTUIX/Hf1jwA337lpALyQjuRidby1Hc8v68BlEnql9s=
+			</data>
+		</dict>
+		<key>PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9slhmTZYKDmos4efk+3YOXYOQXo=
+			</data>
+			<key>hash2</key>
+			<data>
+			ENpn8heCTwGSiOwyirq8KQqwOZxS6b53ok1JQzkTfaI=
 			</data>
 		</dict>
 	</dict>
